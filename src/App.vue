@@ -50,13 +50,17 @@ const cadastraTarefa = () => {
   estado.tarefaTemp = []
 }
 
+const existeTarefasPendentes = () => {
+  return estado.tarefas.filter(tarefa => tarefa.finalizada === false).length
+}
+
 </script>
 
 <template>
   <div class="container">
     <Cabecalho :tarefas-pendentes="getTarefasPendentes().length"/>
     <Formulario :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="evento => estado.tarefaTemp = evento.target.value" :cadastra-tarefa="cadastraTarefa" :trocar-filtro="evento => estado.filtro = evento.target.value"/>
-    <ListaDeTarefas :tarefas="getTarefasFiltradas()"/>
+    <ListaDeTarefas :tarefas="getTarefasFiltradas()" :mensagem-sem-pendentes="!existeTarefasPendentes()"/>
   </div>
 </template>
 
